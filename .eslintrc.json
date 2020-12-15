@@ -1,0 +1,13 @@
+{
+    "extends": "standard",
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "rules": {
+        "semi": 0,
+        "space-before-function-paren": 0,
+        "quotes": ["error", "double"]
+    },
+    "plugins": ["jest"]
+}
