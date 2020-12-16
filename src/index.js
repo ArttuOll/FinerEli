@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
+const foodRoutes = require("./routes/food_routes");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -18,6 +19,7 @@ const app = express();
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(cors);
+app.use(foodRoutes);
 
 app.listen(port, host, () => {
   console.log(`Server running at ${host}:${port}`);
