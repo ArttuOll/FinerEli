@@ -9,5 +9,5 @@ function getDbOperation(dbOperation, handleError) {
 }
 
 module.exports = {
-  getDbOperationCallback: getDbOperation
+  getDbOperation: getDbOperation
 }
