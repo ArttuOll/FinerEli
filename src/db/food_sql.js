@@ -11,12 +11,9 @@ const connection = mysql.createConnection({
 });
 
 function selectLike(queryParameter) {
-  let query = `SELECT cv.FOODID, f.FOODNAME, cn.DESCRIPT, cv.BESTLOC, c2.compunit FROM component_value cv 
-              JOIN foodname f ON f.FOODID = cv.FOODID 
-              JOIN component_names cn ON cn.THSCODE = cv.EUFDNAME 
-              JOIN component c2 ON c2.EUFDNAME = cv.EUFDNAME 
-              WHERE f.FOODNAME LIKE ?
-              ORDER BY cv.FOODID;`;
+  let query = `SELECT f.FOODID, f.FOODNAME FROM foodname f 
+               WHERE f.FOODNAME LIKE "%ruisleipä%" 
+               ORDER BY f.FOODID;`;
   const parameters = "%" + queryParameter + "%";
   query = mysql.format(query, parameters);
   return new Promise((resolve, reject) => {
