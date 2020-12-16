@@ -3,27 +3,42 @@ const sqlOperations = require("../util/sql_operations");
 
 async function searchFoods(request, response) {
   const searchFoodDbOperation = sqlOperations.getDbOperation(
-    searchFood,
+    queryFoods,
     handleServerSideError
   );
   searchFoodDbOperation(request, response);
 }
 
-async function searchFood(request, response) {
-  const query = request.query.q;
-  if (query) {
-    const result = await sql.selectLike(query);
+async function queryFoods(request, response) {
+  const queryParameter = request.query.q;
+  if (queryParameter) {
+    const result = await sql.selectLike(queryParameter);
     response.json({ statusCode: 200, result: result });
   } else {
     response.json({ statusCode: 400, message: "Search query cannot be empty!" });
   }
 }
 
+async function getFoodComponents(request, response) {
+  const foodComponentsOperation = sqlOperations.getDbOperation(
+    queryComponents,
+    handleServerSideError
+  );
+  foodComponentsOperation(request, response);
+}
+
+async function queryComponents(request, response) {
+  const parameters = request.params;
+  const result = await sql.selectFoodComponents(parameters);
+  response.json({ statusCode: 200, result: result });
+}
+
 function handleServerSideError(error, response) {
-  console.log("Error searching food from db: ", error.message);
-  response.json({ statusCode: 500, message: "Error searching food from db" });
+  console.log("Server-side error", error.message);
+  response.json({ statusCode: 500, message: "Server-side error" });
 }
 
 module.exports = {
-  search: searchFoods
+  searchFoods: searchFoods,
+  getFoodComponents: getFoodComponents
 }
