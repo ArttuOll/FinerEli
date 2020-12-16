@@ -1,5 +1,5 @@
 const sql = require("../db/food_sql");
-const sqlOperations = require("../util/sql_operations");
+const sqlOperations = require("../util/db_utils");
 
 async function searchFoods(request, response) {
   const searchFoodDbOperation = sqlOperations.getDbOperation(
@@ -28,7 +28,7 @@ async function getFoodComponents(request, response) {
 }
 
 async function queryComponents(request, response) {
-  const parameters = request.params;
+  const parameters = request.params.id;
   const result = await sql.selectFoodComponents(parameters);
   response.json({ statusCode: 200, result: result });
 }

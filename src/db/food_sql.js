@@ -1,4 +1,5 @@
 const mysql = require("mysql");
+const dbUtils = require("../util/db_utils");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -11,38 +12,32 @@ const connection = mysql.createConnection({
 });
 
 function selectLike(queryParameter) {
-  let query = `SELECT f.FOODID, f.FOODNAME FROM foodname f
-               WHERE f.FOODNAME LIKE "%ruisleipä%"
-               ORDER BY f.FOODID;`;
+  const query = `
+                SELECT f.FOODID AS food_id,
+                       f.FOODNAME AS name
+                FROM foodname f
+                WHERE f.FOODNAME LIKE "%ruisleipä%"
+                ORDER BY f.FOODID;
+                `;
   const parameters = "%" + queryParameter + "%";
-  query = mysql.format(query, parameters);
-  return new Promise((resolve, reject) => {
-    executeSql(query, resolve, reject);
-  });
+  return dbUtils.executeSql(connection, query, [parameters]);
 }
 
 function selectFoodComponents(foodId) {
-  let query = `SELECT cv.FOODID, cn.DESCRIPT, cv.BESTLOC, c2.compunit FROM component_value cv
-                 JOIN component_names cn ON cn.THSCODE = cv.EUFDNAME
-                 JOIN component c2 ON c2.EUFDNAME = cv.EUFDNAME WHERE cv.FOODID = 9
-                 ORDER BY cn.DESCRIPT;`
-  query = mysql.format(query, foodId);
-  return new Promise((resolve, reject) => {
-    executeSql(query, resolve, reject);
-  });
-}
-
-function executeSql(query, resolve, reject, parameters = []) {
-  console.log("Suoritetaan kysely: ", query);
-  connection.query(query, parameters, (error, result, fields) => {
-    if (error) {
-      console.log("Virhe: ", error);
-      reject(error);
-    } else {
-      console.log("Tulos: ", result);
-      resolve(result);
-    }
-  });
+  const query = `
+                SELECT cv.FOODID AS foodid,
+                        cn.DESCRIPT AS description,
+                        cv.BESTLOC AS value,
+                        c2.compunit AS unit_abbrev,
+                        c3.DESCRIPT AS unit
+                FROM component_value cv
+                JOIN component_names cn ON cn.THSCODE = cv.EUFDNAME
+                JOIN component c2 ON c2.EUFDNAME = cv.EUFDNAME
+                JOIN compunit c3 ON c3.THSCODE = c2.COMPUNIT
+                WHERE cv.FOODID = ?
+                ORDER BY cn.DESCRIPT;
+                 `;
+  return dbUtils.executeSql(connection, query, [foodId]);
 }
 
 module.exports = {
