@@ -42,5 +42,6 @@ function selectFoodComponents(foodId) {
 
 module.exports = {
   selectLike: selectLike,
-  selectFoodComponents: selectFoodComponents
+  selectFoodComponents: selectFoodComponents,
+  connection: connection
 }
