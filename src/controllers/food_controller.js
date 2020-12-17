@@ -13,9 +13,9 @@ async function queryFoods(request, response) {
   const queryParameter = request.query.q;
   if (queryParameter) {
     const result = await sql.selectLike(queryParameter);
-    response.json({ statusCode: 200, result: result });
+    response.status(200).send({ result: result });
   } else {
-    response.json({ statusCode: 400, message: "Search query cannot be empty!" });
+    response.status(400).send({ message: "Search query cannot be empty!" });
   }
 }
 
@@ -30,12 +30,12 @@ async function getFoodComponents(request, response) {
 async function queryComponents(request, response) {
   const parameters = request.params.id;
   const result = await sql.selectFoodComponents(parameters);
-  response.json({ statusCode: 200, result: result });
+  response.status(200).send({ result: result });
 }
 
 function handleServerSideError(error, response) {
   console.log("Server-side error", error.message);
-  response.json({ statusCode: 500, message: "Server-side error" });
+  response.status(500).send({ message: "Server-side error" });
 }
 
 module.exports = {
