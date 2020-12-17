@@ -16,7 +16,7 @@ function selectLike(queryParameter) {
                 SELECT f.FOODID AS food_id,
                        f.FOODNAME AS name
                 FROM foodname f
-                WHERE f.FOODNAME LIKE "%ruisleipä%"
+                WHERE f.FOODNAME LIKE ?
                 ORDER BY f.FOODID;
                 `;
   const parameters = "%" + queryParameter + "%";
