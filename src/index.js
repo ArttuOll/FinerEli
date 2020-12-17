@@ -24,3 +24,5 @@ app.use(foodRoutes);
 app.listen(port, host, () => {
   console.log(`Server running at ${host}:${port}`);
 });
+
+module.exports = app;
