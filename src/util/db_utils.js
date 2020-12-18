@@ -1,3 +1,5 @@
+const logger = require("../util/logger");
+
 function getDbOperation(dbOperation, handleError) {
   return async (request, response) => {
     try {
@@ -9,13 +11,14 @@ function getDbOperation(dbOperation, handleError) {
 }
 
 function executeSql(connection, query, parameters = []) {
-  console.log("Suoritetaan kysely: ", query);
+  logger.debug(`util.db_utils.executeSql: Executing query: ${query}`);
   return new Promise((resolve, reject) => {
     connection.query(query, parameters, (error, result, fields) => {
       if (error) {
-        console.log("VIRHE: ", error);
+        logger.error(`util.db_utils.executeSql: ${error}`);
         reject(error);
       } else {
+        logger.info(`util.db_utils.executeSql: Query returned ${result.length} results`);
         resolve(result);
       }
     });
