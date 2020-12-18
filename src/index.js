@@ -1,7 +1,9 @@
 const express = require("express");
+const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const foodRoutes = require("./routes/food_routes");
+const logger = require("./util/logger");
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
@@ -19,6 +21,7 @@ const app = express();
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(cors);
+app.use(morgan("combined", { stream: logger.stream }));
 app.use(foodRoutes);
 
 app.listen(port, host, () => {

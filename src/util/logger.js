@@ -22,6 +22,10 @@ const logger = createLogger({
   ]
 });
 
+logger.stream = {
+  write: (message, encoding) => logger.info(`Connection: ${message}`)
+};
+
 if (process.env.NODE_ENV !== "production") {
   logger.add(new transports.Console({
     level: "debug",
