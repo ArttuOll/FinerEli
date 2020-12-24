@@ -27,8 +27,8 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
-const port = process.env.PORT || 3001;
-const host = process.env.HOST || "127.0.0.1";
+const port = process.env.PORT;
+const host = process.env.HOST;
 const cors = (request, response, next) => {
   response.header("Acces-Control-Allow-Origin", "*");
   response.header("Acces-Control-Allow-Methods", "GET");
@@ -37,7 +37,7 @@ const cors = (request, response, next) => {
 };
 const limiter = rateLimit({
   windowMs: 60 * 1000,
-  max: 10
+  max: process.env.RATELIMITINMINUTE
 });
 
 const app = express();
