@@ -16,6 +16,11 @@
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+/*
+ * @author Arttu Olli
+ * Defines an Express server and its configuration
+*/
+
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");

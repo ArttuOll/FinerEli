@@ -4,6 +4,11 @@ if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
 
+/*
+ * Koko ohjelman käyttämä tietokantayhteys. Tietokannan on oltava
+ * MySQL/MariaDB-tietokanta.
+ * @exports
+*/
 const connection = mysql.createConnection({
   host: process.env.HOSTNAME,
   user: process.env.USERNAME,
@@ -11,6 +16,12 @@ const connection = mysql.createConnection({
   database: process.env.DATABASE
 });
 
+/*
+ * Hakee tietokannasta ruokia käyttäjän antaman hakusanan perusteella. Hakusana
+ * voi esiintyä missä tahansa kohtaa ruoan nimeä. Tulokset palautetaan ruokien
+ * id:n mukaan järjestettynä.
+ * @exports
+*/
 function selectLike(queryParameter) {
   const query = `
                 SELECT f.FOODID AS food_id,
@@ -23,6 +34,12 @@ function selectLike(queryParameter) {
   return dbUtils.executeSql(connection, query, [parameters]);
 }
 
+/*
+ * Hakee tietokannasta ruoan komponentit ruoan id:n perusteella. Eri
+ * komponentteja on yhteensä 74 ja ne on järjestetty komponentin koko nimen
+ * perusteella.
+ * @exports
+*/
 function selectFoodComponents(foodId) {
   const query = `
                 SELECT cv.FOODID AS foodid,

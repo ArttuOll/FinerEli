@@ -2,6 +2,10 @@ const sql = require("../db/food_sql");
 const sqlOperations = require("../util/db_utils");
 const logger = require("../util/logger");
 
+/*
+ * Hakee ruokia tietokannasta käyttäjän hakusanan perusteella.
+ * @exports
+*/
 async function searchFoods(request, response) {
   const searchFoodDbOperation = sqlOperations.getDbOperation(
     queryFoods,
@@ -22,6 +26,10 @@ async function queryFoods(request, response) {
   }
 }
 
+/*
+ * Hakee ruoan komponentit tietokannasta ruoan id:n perusteella.
+ * @exports
+*/
 async function getFoodComponents(request, response) {
   const foodComponentsOperation = sqlOperations.getDbOperation(
     queryComponents,
