@@ -37,7 +37,6 @@ const host = process.env.HOST;
 const cors = (request, response, next) => {
   response.header("Acces-Control-Allow-Origin", "*");
   response.header("Acces-Control-Allow-Methods", "GET");
-  response.header("Acces-Control-Allow-Headers", "Content-Type");
   next();
 };
 const limiter = rateLimit({
