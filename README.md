@@ -14,6 +14,12 @@ API koostuu yhdestä polusta, joka sisältää kaksi eri toiminnallisuutta:
 `/food/?q=[hakusana]` palauttaa kaikki tietokannasta löytyvät ruoka-aineiden nimet ja idt, jotka sisältävät sanan [hakusana].<br>
 `/food/:id` palauttaa tiedon kaikista 74:sta ravintotekijästä annettua id:tä vastaavaa ruoka-ainetta kohti.
 
+# Kuvia
+
+![Food Components](https://github.com/ArttuOll/FinerEli/blob/master/screenshots/food_components.png)
+![Food Search](https://github.com/ArttuOll/FinerEli/blob/master/screenshots/food_search.png)
+![Full Logging](https://github.com/ArttuOll/FinerEli/blob/master/screenshots/full_logging.png)
+
 # Riippuvuudet
 
 - node
