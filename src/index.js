@@ -35,8 +35,8 @@ if (process.env.NODE_ENV !== "production") {
 const port = process.env.PORT;
 const host = process.env.HOSTNAME;
 const cors = (request, response, next) => {
-  response.header("Acces-Control-Allow-Origin", "*");
-  response.header("Acces-Control-Allow-Methods", "GET");
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Methods", "GET");
   next();
 };
 const limiter = rateLimit({
